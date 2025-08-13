@@ -1,6 +1,7 @@
 import * as cheerio from   "cheerio" ; 
 import hljs from   "highlight.js" ; 
-import   "highlight.js/styles/hybrid.css" ; 
+import   "highlight.js/styles/hybrid.css" ;
+
 export   const formatRichEditor = (richText: string) => { 
 const $ = cheerio.load(richText); 
 const highlight = (text: string, lang?: string) => { 
