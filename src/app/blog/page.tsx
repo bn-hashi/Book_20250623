@@ -1,31 +1,22 @@
-import Pagination from   "@/components/Pagination";
-import { INITIAL_PER_PAGE } from   "@/constants";
-import { getList } from   "@/libs/microcmsApi";
-import { DateChange } from   "@/utils/DateChange";
-import Image from   "next/image";
-import Link from   "next/link";
+// src/app/blog/page.tsx  （1ページ目）
+import { getList } from "@/libs/microcmsApi";
+import { INITIAL_PER_PAGE } from "@/constants";
+import Pagination from "@/components/Pagination";
+import Link from "next/link";
+import Image from "next/image";
+import { DateChange } from "@/utils/DateChange";
 
-type Props = {
-  params: Promise <{ p:string}>;
-};
+export default async function BlogIndex() {
+  const data = await getList({ limit: INITIAL_PER_PAGE });
 
-export default async function Blog({params}: Props) {
-  const awaitParam = await params;
-  const p = parseInt(awaitParam.p as string, 10);
-  const data = await getList({
-    limit: INITIAL_PER_PAGE,
-    offset: INITIAL_PER_PAGE * (p - 1),
-  });
-  
   return (
     <div className="flex flex-col w-full min-h-screen items-center justify-center pt-40">
-      <p className="text-3xl font-bold">ページネーション後のブログ一覧</p>
+      <p className="text-3xl font-bold">ブログ一覧</p>
       <ul className="grid grid-cols-2 gap-8 w-11/12 max-w-[600px] mx-auto mt-10">
         {data.contents.map((detail) => (
-          <li key={detail.id} className="mb-10">
-            <Link
-              href={`/blog/detail/${detail.id}`}
-              className="flex flex-col h-80 bg-gray-100 shadow-lg rounded-2xl"
+          <li key={detail.id}>
+            <Link href={`/blog/detail/${detail.id}`}
+            className="flex flex-col h-80 bg-gray-100 shadow-lg rounded-2xl"
             >
               {/* 画像部分 */}
               <div className="relative w-full h-40">
@@ -49,7 +40,7 @@ export default async function Blog({params}: Props) {
           </li>
         ))}
       </ul>
-      <Pagination totalCount={data.totalCount} />
+      <Pagination totalCount={data.totalCount} p={1} />
     </div>
   );
 }
