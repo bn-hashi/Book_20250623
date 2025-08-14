@@ -17,3 +17,13 @@ queries,
 });
 return listData; 
 };
+
+export const getDetail = async (contentId: string, queries?: MicroCMSQueries) => {
+  const detailData = await client
+    .getListDetail<Blog>({
+    endpoint: "kindle",
+    contentId,
+    queries,
+  })
+  return detailData;
+};
