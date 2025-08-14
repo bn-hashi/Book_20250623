@@ -20,7 +20,7 @@ return (
       <li className = "mx-1"   key = {index} > 
         {p !== index ? ( 
           <Link 
-            href = { `${ basePath }/ page /${ index }`} 
+            href = { `${ basePath }/ page /${ index }`}
             className = "flex justify-center items-center w-9 h-9 rounded-lg hover:bg-gray-200 border border-slate-400"
             >
               {index} 
